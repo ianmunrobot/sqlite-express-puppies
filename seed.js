@@ -7,7 +7,16 @@ const longArray = num => new Array(num).fill('')
 
 db.open('./db.sqlite', { Promise })
 .then(() => {
-  return db.run('CREATE TABLE IF NOT EXISTS Puppy (id INTEGER PRIMARY KEY, first_name TEXT, last_name TEXT, ssn TEXT, callsign TEXT, age INTEGER)')
+  const tableQuery = 
+  `CREATE TABLE IF NOT EXISTS Puppy (
+    id INTEGER PRIMARY KEY, 
+    first_name TEXT,
+    last_name TEXT,
+    ssn TEXT,
+    callsign TEXT,
+    age INTEGER
+  )`
+  return db.run(tableQuery)
 })
 .then(() => {
   const lastNames = ['Doggo', 'Pupster', 'Smith', 'Wolf']

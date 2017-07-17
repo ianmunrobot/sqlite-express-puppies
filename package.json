@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "chance": "^1.0.10",
     "express": "^4.15.3",
     "sqlite": "^2.8.0"
