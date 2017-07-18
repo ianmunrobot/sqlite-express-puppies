@@ -19,7 +19,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // get all puppies
 app.get('/', (req, res, next) => {
-  db.all('select * from Puppy')
+  // returns all rows matching the query
+  db.all('SELECT * FROM Puppy')
   .then(res.send.bind(res))
   .catch(next)
 })
@@ -27,9 +28,9 @@ app.get('/', (req, res, next) => {
 // add one puppy
 app.post('/', (req, res, next) => {
   const { columns, values } = keyValueSplitter(req.body)
-  db.run(`Insert into Puppy (${columns.join(', ')}) values (${values.join(', ')})`)
+  db.run(`INSERT INTO Puppy (${columns.join(', ')}) VALUES (${values.join(', ')})`)
   .then(puppyStmt => {
-    return db.get(`Select * from Puppy where id = ${puppyStmt.stmt.lastID}`)
+    return db.get(`SELECT * FROM Puppy WHERE id = ${puppyStmt.stmt.lastID}`)
   })
   .then(puppy => {
     res.status(201).send(puppy)
@@ -39,7 +40,7 @@ app.post('/', (req, res, next) => {
 
 // get one puppy
 app.get('/:id', (req, res, next) => {
-  db.get(`SELECT * from Puppy where id = ${req.params.id}`)
+  db.get(`SELECT * FROM Puppy WHERE id = ${req.params.id}`)
   .then(res.send.bind(res))
   .catch(next)
 })
@@ -47,15 +48,15 @@ app.get('/:id', (req, res, next) => {
 // update one puppy
 app.put('/:id', (req, res, next) => {
   const updatedValues = updateSyntaxParser(req.body)
-  db.run(`update Puppy set ${updatedValues} where id = ${req.params.id}`)
-  .then(puppyStmt => db.get(`Select * from Puppy where id = ${req.params.id}`))
+  db.run(`UPDATE Puppy SET ${updatedValues} WHERE id = ${req.params.id}`)
+  .then(puppyStmt => db.get(`SELECT * FROM Puppy WHERE id = ${req.params.id}`))
   .then(res.send.bind(res))
   .catch(next)
 })
 
 // delete one puppy
 app.delete('/:id', (req, res, next) => {
-  db.run(`delete from Puppy where id = ${req.params.id}`)
+  db.run(`DELETE FROM Puppy WHERE id = ${req.params.id}`)
   .then(() => {
     res.status(204).send()
   })
