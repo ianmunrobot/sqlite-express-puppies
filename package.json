@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,6 +13,7 @@
     "body-parser": "^1.17.2",
     "chance": "^1.0.10",
     "express": "^4.15.3",
+    "morgan": "^1.8.2",
     "sqlite": "^2.8.0"
   }
 }
