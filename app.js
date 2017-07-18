@@ -28,8 +28,10 @@ app.get('/', (req, res, next) => {
 // add one puppy
 app.post('/', (req, res, next) => {
   const { columns, values } = keyValueSplitter(req.body)
+  // runs query, returns a Statement instance
   db.run(`INSERT INTO Puppy (${columns.join(', ')}) VALUES (${values.join(', ')})`)
   .then(puppyStmt => {
+    // Use the newly inserted id to return the created Puppy
     return db.get(`SELECT * FROM Puppy WHERE id = ${puppyStmt.stmt.lastID}`)
   })
   .then(puppy => {
